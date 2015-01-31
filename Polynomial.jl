@@ -60,24 +60,22 @@ function deg(p::Polynomial)
 end
 
 function Base.divrem{T}(p::Polynomial{T}, q::Polynomial{T})
+  print("yo")
   if iszero(q)
     error("Divide by zero")
   elseif deg(q) > deg(p)
     (zero(T), p)
   else
     (d,r) = divrem(p.coeffs[1+deg(p)], q.coeffs[1+deg(q)])
-    (d,r) = map(x -> x * X^(deg(p)-deg(q)), (d,r))
-    d = div(p.coeffs[1+deg(p)], q.coeffs[1+deg(q)]) * X^(deg(p) - deg(q))
-    r = p - q*d
-    if !(deg(r) < deg(p))
-      r2 = r.coeffs[1+deg(r)] * X^deg(r)
-    else
-      r2 = 0
-    end
-    (dd,rr) = divrem(r-r2,q)
-    (d+dd,rr+r2)
+    (d,r) = map(x -> Polynomial([x]), (d,r))
+    d = d * X^(deg(p)-deg(q))
+    r = r * X^deg(p)
+    (dd,rr) = divrem(p-(d*q+r), q)
+    (d+dd,r+rr)
   end
 end
+
+Base.divrem(x::Union(Number,Poly), y::Union(Number,Poly)) = Base.divrem(promote(x,y)...)
 
 Base.div(p::Polynomial, q::Polynomial) = divrem(p,q)[1]
 Base.rem(p::Polynomial, q::Polynomial) = divrem(p,q)[2]
