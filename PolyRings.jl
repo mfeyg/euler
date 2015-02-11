@@ -23,7 +23,7 @@ function X_mod{T<:Number}(m::Polynomial{T})
 
          function Base.convert(::Type{$Ring}, x::PolyRing{$T})
            if modulus(x) % $m == 0
-             $Ring(x.v)
+             $Ring(x.v % $m)
            else
              error("Incompatible moduli")
            end
