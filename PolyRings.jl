@@ -8,6 +8,7 @@ using Polynomials
 abstract PolyRing{T<:Number} <: Number
 
 function X_mod{T<:Number}(m::Polynomial{T})
+  # ask Santa for dependent types
   Ring = symbol("PolyRing", gensym())
   eval(quote
          immutable $Ring <: PolyRing{$T}
@@ -20,13 +21,11 @@ function X_mod{T<:Number}(m::Polynomial{T})
          modulus(::Type{$Ring}) = $m
          modulus(::$Ring) = $m
 
-         ## FIXME
-         function Base.convert{R <: PolyRing{$T}}(::Type{R}, x::$Ring)
-           (d,r) = divrem(modulus(R), modulus(x))
-           if r != 0
-             error("Incompatible moduli")
+         function Base.convert(::Type{$Ring}, x::PolyRing{$T})
+           if modulus(x) % $m == 0
+             $Ring(x.v)
            else
-             R(d*x.v)
+             error("Incompatible moduli")
            end
          end
 
