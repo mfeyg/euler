@@ -36,7 +36,7 @@ function X_mod{T<:Number}(m::Polynomial{T})
          *(a::$Ring, b::$Ring) = $Ring(a.v*b.v)
          ==(a::$Ring, b::$Ring) = (a-b).v == 0
 
-         return $Ring(X)
+         return $Ring(convert(Polynomial{$T}, X))
        end)
 end
 
