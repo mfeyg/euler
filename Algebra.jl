@@ -21,6 +21,7 @@ function fAlgebra{R,I}(f::Function, ::Type{R}, ::Type{I})
 
   return Exp
 end
+
 fAlgebra{R,I}(::Type{R}, ::Type{I}, f::Function) = fAlgebra(f,R,I)
 
 +{Exp <: Alg}(α::Exp, β::Exp) = Exp([i => get(α.coeffs, i, 0) + get(β.coeffs, i, 0)
