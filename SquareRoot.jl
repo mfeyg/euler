@@ -22,6 +22,8 @@ Base.show(io::IO, r::Sqrt) = write(io, begin
 isrational(a::Sqrt) = all([b==1||c==0 for (b,c) in a.coeffs])
 
 function rationalize(a::Sqrt)
+  # don't try too hard
+  if length(a.coeffs) > 20 || any([x > BigInt(10)^100 for x in values(a.coeffs)]) return 1 end
   if isrational(a) 1
   else
     x = Sqrt([k => a*(-1)^i for ((k,a),i) in zip(a.coeffs, 1:length(a.coeffs))])
@@ -32,6 +34,7 @@ end
 function Fractions.simplify(num::Sqrt, den::Sqrt)
   r = rationalize(den)
   num *= r; den *= r
+  if den == 0 error("Denominator is zero") end
   g = gcd([values(num.coeffs)..., values(den.coeffs)...]...)
   num = Sqrt([k => div(a,g) for (k,a) in num.coeffs])
   den = Sqrt([k => div(a,g) for (k,a) in den.coeffs])
