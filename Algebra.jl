@@ -9,6 +9,7 @@ function fAlgebra{R,I}(f::Function, ::Type{R}, ::Type{I})
   Exp = eval(quote
                immutable $Exp <: Alg
                  coeffs :: Dict{$I,$R}
+                 $Exp(coeffs::Dict) = new(filter((i,a)->a!=0, coeffs))
                end
                $Exp
              end)
