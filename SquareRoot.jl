@@ -12,8 +12,11 @@ Base.promote_rule{I<:Integer}(::Type{Sqrt}, ::Type{I}) = Sqrt
 Base.convert(::Type{Sqrt}, i::Integer) = i*Sqrt(1)
 
 Base.show(io::IO, r::Sqrt) = write(io, begin
-                                     s = join([if b==1 string(a) elseif a==1 string("√",b) else string(a,"√",b) end
-                                               for (b,a) in r.coeffs], " + ")
+                                     s = join([if b == 1 string(a)
+                                             elseif a == 1 string("√",b)
+                                             else string(a,"√",b) end
+                                               for (b,a) in r.coeffs]
+                                              , " + ")
                                      if s == "" "0" else s end
                                    end)
 
@@ -34,17 +37,19 @@ function rationalize(a::Sqrt)
 end
 
 function Fractions.simplify(num::Sqrt, den::Sqrt)
+  function trans(f)
+    num = f(num)
+    den = f(den)
+  end
   r = rationalize(den)
   if isrational(den*r)
-    num *= r; den *= r
+    trans(x -> x*r)
   end
   if den == 0 error("Denominator is zero") end
   g = gcd([values(num.coeffs)..., values(den.coeffs)...]...)
-  num = Sqrt([k => div(a,g) for (k,a) in num.coeffs])
-  den = Sqrt([k => div(a,g) for (k,a) in den.coeffs])
+  trans(r -> Sqrt([k => div(a,g) for (k,a) in r.coeffs]))
   if den.coeffs[1] < 0
-    num *= -1
-    den *= -1
+    trans(x -> -x)
   end
   (num,den)
 end
