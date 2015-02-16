@@ -47,7 +47,7 @@ function Fractions.simplify(num::Sqrt, den::Sqrt)
   end
   if den == 0 error("Denominator is zero") end
   g = gcd([values(num.coeffs)..., values(den.coeffs)...]...)
-  trans(r -> Sqrt([k => div(a,g) for (k,a) in r.coeffs]))
+  trans(x -> Sqrt([k => div(a,g) for (k,a) in x.coeffs]))
   if den.coeffs[1] < 0
     trans(x -> -x)
   end
