@@ -18,7 +18,7 @@ function fAlgebra{R,I}(f::Function, ::Type{R}, ::Type{I})
   global *
   *(λ::R, α::Exp) = Exp([i => λ*a for (i,a) in α.coeffs])
   *(α::Exp, λ::R) = λ*α
-  *(α::Exp, β::Exp) = reduce(+, Exp(Dict()), [a*b*f(i,j) for (i,a) in α.coeffs, (j,b) in β.coeffs])
+  *(α::Exp, β::Exp) = reduce(+, zero(Exp), [a*b*f(i,j) for (i,a) in α.coeffs, (j,b) in β.coeffs])
 
   return Exp
 end
