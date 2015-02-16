@@ -34,4 +34,6 @@ fAlgebra{R,I}(::Type{R}, ::Type{I}, f::Function) = fAlgebra(f,R,I)
 
 =={Exp <: Alg}(α::Exp, β::Exp) = α.coeffs == β.coeffs
 
+zero{Exp <: Alg}(Exp) = Exp(Dict())
+
 end
