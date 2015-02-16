@@ -25,7 +25,7 @@ Base.convert{T<:Number}(::Type{T}, x::Fraction) = convert(T, convert(T, x.num) /
 *{T}(x::Fraction{T}, y::Fraction{T}) = Fraction{T}(x.num*y.num, x.den*y.den)
 /{T}(x::Fraction{T}, y::Fraction{T}) = Fraction{T}(x.num*y.den,x.den*y.num)
 
-simplify(x::Integer, y::Integer) = map(a->div(a,gcd(x,y)),(x,y))
+simplify(x::Integer, y::Integer) = map((g->a->div(a,g))(y<0?-gcd(x,y):gcd(x,y)),(x,y))
 simplify(x,y) = (x,y)
 
 end
