@@ -19,4 +19,36 @@ Base.show(io::IO, r::Sqrt) = write(io, begin
 /(a::Sqrt,b::Integer) = Fraction(a,b)
 /(b::Integer,a::Sqrt) = Fraction(b,a)
 
+isrational(a::Sqrt) = all([b==1||c==0 for (b,c) in a.coeffs])
+
+function rationalize(a::Sqrt)
+  if isrational(a) 1
+  else
+    x = Sqrt([k => a*(-1)^i for ((k,a),i) in zip(a.coeffs, 1:length(a.coeffs))])
+    x*rationalize(a*x)
+  end
+end
+
+function Fractions.simplify(num::Sqrt, den::Sqrt)
+  r = rationalize(den)
+  num *= r; den *= r
+  g = gcd([values(num.coeffs)..., values(den.coeffs)...]...)
+  num = Sqrt([k => div(a,g) for (k,a) in num.coeffs])
+  den = Sqrt([k => div(a,g) for (k,a) in den.coeffs])
+  if den.coeffs[1] < 0
+    num *= -1
+    den *= -1
+  end
+  (num,den)
+end
+
+parenthesize(r::Sqrt) = if length(r.coeffs) > 1 string("(",r,")") else string(r) end
+
+Base.show(io::IO, f::Fraction{Sqrt}) =
+  if f.den == 1
+    show(io, f.num)
+  else
+    write(io, string(parenthesize(f.num), "/", parenthesize(f.den)))
+  end
+
 end
