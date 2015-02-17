@@ -65,4 +65,6 @@ Base.show(io::IO, f::Fraction{Sqrt}) =
     write(io, string(parenthesize(f.num), "/", parenthesize(f.den)))
   end
 
+Base.convert{T<:FloatingPoint}(::Type{T}, r::Sqrt) = sum([a*√b for (b,a) in r.coeffs])
+
 end

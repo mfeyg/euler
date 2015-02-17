@@ -2,11 +2,13 @@ cd("/Users/Mendel/Desktop/euler")
 
 using SquareRoot
 
+sqrt = SquareRoot.sqrt
+
 intpart(a) = floor(Int, float64(a))
 
 function period(n)
-  if isinteger(sqrt(n)) return 0 end
-  a = Sqrt(n)
+  if isinteger(√n) return 0 end
+  a = sqrt(n)
   s = Array(Float64,0)
   x = float64(a)
   while !(x in s)
