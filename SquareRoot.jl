@@ -4,8 +4,7 @@ export sqrt
 
 using Algebra, Fractions
 
-#@algebra Sqrt{Integer,Integer} (i,j) -> sqrt(i*j)
-@algebra Sqrt{T<:Integer} = T[[Int]] with Sqrt(i) * Sqrt(j) = sqrt(i*j)
+@algebra Sqrt{Integer,Integer} (i,j) -> sqrt(i*j)
 
 sqrt(n::Integer) = if n == 1 Sqrt(1) else ((a,b) -> a*Sqrt(b))(map(prod,zip([(x^div(y,2), x^isodd(y)) for (x,y) in factor(n)]...))...) end
 
