@@ -1,29 +1,31 @@
 module Algebra
 
-export fAlgebra
+export @algebra
 
 abstract Alg <: Number
 
-function fAlgebra{R,I}(f::Function, ::Type{R}, ::Type{I})
-  Exp = symbol("Algebra", gensym())
-  Exp = eval(quote
-               immutable $Exp <: Alg
-                 coeffs :: Dict{$I,$R}
-                 $Exp(coeffs::Dict) = new(filter((i,a)->a!=0, coeffs))
-               end
-               $Exp
-             end)
-  Exp(i::I) = Exp(Dict(i => one(R)))
+macro algebra(alg, mul)
+  if alg.head != :curly || length(alg.args) != 3
+    error("Invalid syntax")
+  end
+  A,R,I = alg.args
+  return quote
+    R,I = $(esc(R)), $(esc(I))
+    mul = $(esc(mul))
 
-  global *
-  *(λ::R, α::Exp) = Exp([i => λ*a for (i,a) in α.coeffs])
-  *(α::Exp, λ::R) = λ*α
-  *(α::Exp, β::Exp) = reduce(+, zero(Exp), [a*b*f(i,j) for (i,a) in α.coeffs, (j,b) in β.coeffs])
+    immutable $(esc(A)) <: Alg
+      coeffs :: Dict{I,R}
+      $(esc(A))(coeffs::Dict) = new(filter((i,a)->a!=0, coeffs))
+    end
+    A = $(esc(A))
 
-  return Exp
+    $(esc(A))(i::I) = A(Dict(i => one(R)))
+
+    Base.(:*)(λ::R, α::A) = A([i => λ*a for (i,a) in α.coeffs])
+    Base.(:*)(α::A, λ::R) = λ*α
+    Base.(:*)(α::A, β::A) = reduce(+, zero(A), [a*b*mul(i,j) for (i,a) in α.coeffs, (j,b) in β.coeffs])
+  end
 end
-
-fAlgebra{R,I}(::Type{R}, ::Type{I}, f::Function) = fAlgebra(f,R,I)
 
 +{Exp <: Alg}(α::Exp, β::Exp) = Exp([i => get(α.coeffs, i, 0) + get(β.coeffs, i, 0)
                                      for i in union(keys(α.coeffs), keys(β.coeffs))])
