@@ -2,7 +2,7 @@ module Moduli
 
 export modulo
 
-immutable Modulo{T}
+immutable Modulo{T<:Integer} <: Integer
   modulus :: T
   val :: T
 end
@@ -18,6 +18,8 @@ end
 Base.promote{T}(x, y::Modulo{T}) = (Modulo(y.modulus, convert(T, x)), y)
 
 Base.promote(x::Modulo, y) = reverse(Base.promote(y, x))
+
+Base.convert{T<:Integer}(::Type{T}, x::Modulo{T}) = x.val
 
 modulo{T}(x::T, m::T) = Modulo(m, x%m)
 
