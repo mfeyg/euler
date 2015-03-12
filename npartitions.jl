@@ -22,15 +22,15 @@
 #     end
 # end
 
-lim(n) = 1-(1-sqrt(24n+1))/6
 LIM=10^5
 m=10^6
 Parts = Array(Int, LIM)
 parts(n::Int) = if n < 0 0 elseif n < 2 1 else Parts[n] end
+lim(n) = div(5 + isqrt(24n+1), 6)
 for n=1:LIM
   np = 0
   sgn = 1
-  for k=1:floor(Int,lim(n))
+  for k=1:lim(n)
     np = mod(np + sgn * (parts(n-k*(3k-1)>>1) + parts(n-k*(3k+1)>>1)), m)
     sgn = -sgn
   end
