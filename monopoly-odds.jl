@@ -25,7 +25,7 @@ cc = [2,17,33]   # communtiy chest
 ch = [7,22,36]   # chance
 
 # to find the next railroad and utility:
-nextRR(b) = 5 + 10 * mod(div(b+5,10), 4)
+nextRR(b) = 5 + 10 * mod(div(b + 5, 10), 4)
 nextUtil(b) = 12 <= b < 28 ? 28 : 12
 
 # Now we can define the board rules.
