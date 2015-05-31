@@ -20,9 +20,9 @@ Dice = sum([ Int64[ a!=b && to == mod(from + a+b, B) ||
 board = 0:B-1
 
 # these are the squares with special rules:
-g2j=[30]       # go to jail
-cc=[2,17,33]   # communtiy chest
-ch=[7,22,36]   # chance
+g2j = [30]       # go to jail
+cc = [2,17,33]   # communtiy chest
+ch = [7,22,36]   # chance
 
 # to find the next railroad and utility:
 nextRR(b) = 5 + 10 * mod(div(b+5,10), 4)
