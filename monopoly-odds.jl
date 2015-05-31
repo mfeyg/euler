@@ -1,6 +1,6 @@
-die = 1:4   # die sides
-B = 40      # board size
-jail = 10   # jail square
+die = 1 : try parseint(ARGS[1]) catch 4 end   # die sides
+B = 40                                        # board size
+jail = 10                                     # jail square
 
 # We will triplicate our state space to count consecutive doubles,
 # so that states 0..39 have had no doubles, 40..79 have had ones double roll,
