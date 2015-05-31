@@ -42,7 +42,7 @@ Board = diagonal(Float64[
   if in(from, g2j)
     to == jail
   elseif in(from, cc)
-    (14*(to==from) + (to==0) + (to==jail)) / 16
+    (14 * (to == from) + (to == 0) + (to == jail)) / 16
   elseif in(from, ch)
     (sum(to .== [0,10,11,24,39,5])
      + 2 * (to == nextRR(from))
@@ -54,7 +54,7 @@ Board = diagonal(Float64[
     to == from
   end
 
-  for to=board, from=board ])
+  for to = board, from = board ])
 
 # the full results of a single move: first roll the dice, then follow the rules
 Move = Board * Dice
