@@ -36,6 +36,7 @@ CH = Int64[ in(from,ch) * (in(to, [0,10,11,24,39,5]) + 2 * (to == nextRR(from))
                                                      + (to == from - 3)
                                                      + 6 * (to == from)
                            ) for to=board, from=board ] / 16
+
 Board = G2J + CC + CH + Int64[to==from && !in(from, [g2j;cc;ch]) for to=board, from=board]
 
 # since our board rules ignore doubles, just repeat them along the diagonal
