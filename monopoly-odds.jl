@@ -28,7 +28,7 @@ ch=[7,22,36]
 nextRR(b) = 5 + 10 * mod(div(b+5,10), 4)
 nextUtil(b) = 12 <= b < 28 ? 28 : 12
 
-# Now we can define the board rules:
+# Now we can define the board rules
 G2J = Int64[ in(from, g2j) && to==jail for to=board, from=board ]
 CC = Int64[ in(from,cc) * (14*(to==from) + (to==0 || to==jail)) for to=board, from=board] / 16
 CH = Int64[ in(from,ch) * (in(to, [0,10,11,24,39,5]) + 2 * (to == nextRR(from))
