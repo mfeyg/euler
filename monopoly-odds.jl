@@ -6,7 +6,7 @@ jail = 10                                     # jail square
 # so that states 0..39 have had no doubles, 40..79 have had ones double roll,
 # and 80..119 have had two doubles
 
-S = 0:3B-1   # the full state space
+S = 0 : 3B-1   # the full state space
 doubles(s) = div(s,B)
 
 # the results of a dice roll:
@@ -17,7 +17,7 @@ Dice = sum([ Int64[ a!=b && to == mod(from + a+b, B) ||
              for a = die, b = die]) / length(die)^2
 
 # For the individual squares' rules, we forget about doubles, and focus on a single board
-board = 0:B-1
+board = 0 : B-1
 
 # these are the squares with special rules:
 g2j = [30]       # go to jail
