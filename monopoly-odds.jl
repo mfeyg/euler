@@ -1,5 +1,4 @@
-d = 4       # die sides
-die = 1:d   # die roll
+die = 1:4   # die sides
 B = 40      # board size
 jail = 10   # jail square
 
@@ -15,7 +14,7 @@ Dice = sum([ Int64[ a!=b && to == mod(from + a+b, B) ||
                     a==b && to == mod(from + a+b, B) + B*(doubles(from)+1) ||
                     a==b && doubles(from) == 2 && to == jail
                for to = S, from = S ]
-             for a=die, b=die]) / d^2
+             for a=die, b=die]) / length(die)^2
 
 # For the individual squares' rules, we forget about doubles, and focus on a single board
 board = 0:B-1
