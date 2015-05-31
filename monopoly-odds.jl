@@ -9,7 +9,7 @@ jail = 10   # jail square
 S = 0:3B-1   # the full state space
 doubles(s) = div(s,B)
 
-# the result of a dice roll:
+# the results of a dice roll:
 Dice = sum([ Int64[ a!=b && to == mod(from + a+b, B) ||
                     a==b && to == mod(from + a+b, B) + B*(doubles(from)+1) ||
                     a==b && doubles(from) == 2 && to == jail
