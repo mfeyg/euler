@@ -2,7 +2,7 @@ die = 1:4   # die sides
 B = 40      # board size
 jail = 10   # jail square
 
-# We will triplicate our state space to count consecutive doubles
+# We will triplicate our state space to count consecutive doubles,
 # so that states 0..39 have had no doubles, 40..79 have had ones double roll,
 # and 80..119 have had two doubles
 
