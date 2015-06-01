@@ -60,7 +60,7 @@ Board = diagonal(Float64[
 Move = Board * Dice
 
 # compute the limiting distribution
-π = nullspace(eye(length(S)) - Move)
+π = nullspace(one(Move) - Move)
 
 # discard doubles and normalize
 odds = (π[1 : B] + π[B+1 : 2B] + π[2B+1 : 3B]) / sum(π)
