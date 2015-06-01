@@ -10,9 +10,9 @@ S = 0 : 3B-1   # the full state space
 doubles(s) = div(s,B)
 
 # the results of a dice roll:
-Dice = sum([ Int64[ a!=b && to == mod(from + a+b, B) ||
-                    a==b && to == mod(from + a+b, B) + B*(doubles(from)+1) ||
-                    a==b && doubles(from) == 2 && to == jail
+Dice = sum([ Int64[ a != b && to == mod(from + a + b, B) ||
+                    a == b && to == mod(from + a + b, B) + B * (doubles(from) + 1) ||
+                    a == b && doubles(from) == 2 && to == jail
                for to = S, from = S ]
              for a = die, b = die]) / length(die)^2
 
