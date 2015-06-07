@@ -28,8 +28,6 @@ ch = [7,22,36]   # chance
 nextRR(b) = 5 + 10 * mod(div(b + 5, 10), 4)
 nextUtil(b) = 12 <= b < 28 ? 28 : 12
 
-# Now we can define the board rules.
-
 # since our board rules ignore doubles, they just repeat along the diagonal:
 diagonal(M) =
   let O = zero(M)
