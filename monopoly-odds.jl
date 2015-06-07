@@ -66,7 +66,7 @@ Move = Board * Dice
 odds = (π[1 : B] + π[B+1 : 2B] + π[2B+1 : 3B]) / sum(π)
 
 # sort squares by odds
-top = sort([0:39;], by = b -> odds[b + 1], rev = true)
+top = sort([0:B-1;], by = b -> odds[b + 1], rev = true)
 
 # print the modal string
 @printf("Modal string: %02d%02d%02d\n", top[1:3]...)
