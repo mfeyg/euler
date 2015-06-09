@@ -2,3 +2,9 @@
 Polynomials.jl/
 *.so
 *.swp
+.cabal-sandbox
+cabal.sandbox.config
+*.hi
+*.o
+
+sudoku
