@@ -26,7 +26,7 @@ showGrid g = sequence_
                  [(putChar . intToDigit $ g!(x,y))
                   >> putChar ' '
                  | y <- [1..9]]
-                 >> putChar '\n'
+                >> putChar '\n'
                | x <- [1..9]]
 
 adjacentTo (x,y) = nub $
