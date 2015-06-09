@@ -48,7 +48,7 @@ solve grid = if all (/=0) grid then return grid else do
   a <- possibilities grid (nextIx grid)
   solve (grid // [(nextIx grid, a)])
 
-number grid = 100 * (grid!(1,1)) + 10 * (grid!(1,2)) + grid!(1,3)
+number grid = 100 * grid!(1,1) + 10 * grid!(1,2) + grid!(1,3)
 
 main = withSudoku $
   print . sum . map number . concatMap solve
