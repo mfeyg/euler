@@ -5,6 +5,7 @@ gens=[(m^2-n^2,2*m*n) for (n,m) = gens]
 
 pairs = vcat([[(k*min(p...),k*max(p...)) for k = 1:div(2M,max(p...))] for p=gens]...)
 
+ways(a,b) = div(a,2)+max(div(2a-b,2)+1,0)
 splits(a,b) = [[(a-c,c,b) for c=1:div(a,2)]; [(a,c,b-c) for c=b-a:div(b,2)]]
 
 filter(t->max(t...)<=M, vcat(map(p->splits(p...),pairs)...))
