@@ -22,7 +22,8 @@ valid = filter ((\s -> null . intersect s . concatMap opposites $ s)
 solns = do
   a <- valid . subsequences $ ['0'..'9']
   b <- valid . subsequences $ ['0'..'9'] \\ (a \\ "769")
+  guard $ a < b
   guard . not . and $ [x `elem` y | x <- "69" , y <- [a,b]]
   return (a,b)
 
-main = print (length solns `div` 2)
+main = print . length $ solns
