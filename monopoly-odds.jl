@@ -21,7 +21,7 @@ board = 0 : B-1
 
 # these are the squares with special rules:
 g2j = [30]       # go to jail
-cc = [2,17,33]   # communtiy chest
+cc = [2,17,33]   # community chest
 ch = [7,22,36]   # chance
 
 # to find the next railroad and utility:
