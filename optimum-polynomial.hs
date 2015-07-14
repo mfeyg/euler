@@ -10,6 +10,7 @@ parts = go id
   where go xs (y:ys) = (y, xs ys) : go (xs . (y:)) ys
         go _ [] = []
 
+-- Define a Langrange polynomial `f` given target points [(xi,yi)] s.t. f xi = yi
 lagrange pts x = sum $ map (`term` x) (parts pts)
 
 term ((xj,yj), rest) x = (yj%1) * product [(x-xm)%(xj-xm) | (xm,_) <- rest]
