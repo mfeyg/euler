@@ -1,7 +1,6 @@
 import Data.Array
 import Data.Maybe
 import Data.List (minimumBy)
-import Data.Function
 
 type Node = Int
 type Weight = Int
