@@ -13,7 +13,7 @@ polySum p = foldr addPoly zero
 to n p = constPoly (evalPoly p n) `addPoly` negatePoly (composePoly p (poly LE [-1,1]))
 
 fpow 0 f = id
-fpow n f = f . fpow (n-1) f
+fpow n f = fpow (n-1) f . f
 
 incr n =  flip evalPoly 1 . to n . polySum
                           . fpow 8 (to (n+1) . polySum)
