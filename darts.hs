@@ -21,3 +21,5 @@ checkouts = do
   True <- [sorted (tail darts)]
   True <- [sum (map score darts) < 100]
   return darts
+
+main = print (length checkouts)
