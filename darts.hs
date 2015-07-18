@@ -1,5 +1,3 @@
-import Data.Maybe
-
 data Score = S Int | D Int | T Int deriving (Eq,Show,Ord)
 
 score (S p) = p
